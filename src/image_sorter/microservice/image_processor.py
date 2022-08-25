@@ -1,7 +1,7 @@
 from image_sorter.communication.rabbitmq import (
-    Singleton,
-    RabbitMQ,
     ContextConfiguration,
+    RabbitMQ,
+    Singleton,
 )
 
 

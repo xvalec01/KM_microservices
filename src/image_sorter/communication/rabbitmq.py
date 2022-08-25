@@ -1,5 +1,6 @@
-import pika
 import logging
+
+import pika
 
 
 class Singleton(type):
@@ -13,7 +14,12 @@ class Singleton(type):
 
 class ContextConfiguration:
     def __init__(
-        self, routing_key, receiver=False, host="localhost", queue=None, exchange=None
+        self,
+        routing_key=None,
+        receiver=False,
+        host="localhost",
+        queue=None,
+        exchange=None,
     ):
         self.host = host
         self.queue = queue
@@ -33,7 +39,14 @@ class RabbitMQ(metaclass=Singleton):
         self._channel.exchange_declare(
             exchange=self.context.exchange_name, exchange_type="direct"
         )
+        if self.routing_key is not None:
+            self._channel.queue_bind(
+                exchange=context.exchange_name,
+                queue=context.queue,
+                routing_key=context.routing_key,
+            )
         if self.context.queue is None:
+            self.context.queue = ""
             result = self._channel.queue_declare(queue=self.context.queue, durable=True)
             self.context.queue = result.method.queue
 

@@ -14,4 +14,4 @@ RUN python3 setup.py bdist_wheel \
     && python3 -m pip install dist/*.whl \
     && rm -r ./*
 
-ENTRYPOINT ["image-sorter", "start"]
+CMD ["bash"]

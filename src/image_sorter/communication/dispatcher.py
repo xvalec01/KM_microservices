@@ -14,13 +14,6 @@ class Dispatcher:
         )
 
     def receive(self, context):
-
-        self._channel.queue_bind(
-            exchange=context.exchange_name,
-            queue=context.queue,
-            routing_key=context.routing_key,
-        )
-
         def callback(ch, method, properties, body):
             print("Received %r" % body)
 
