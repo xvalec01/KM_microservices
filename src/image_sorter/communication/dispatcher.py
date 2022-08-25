@@ -2,6 +2,10 @@ import logging
 
 
 class Dispatcher:
+    """
+    Dispatcher purpose is to solve sending and receiving messages
+    """
+
     def __init__(self, channel):
         self._channel = channel
 
@@ -15,6 +19,9 @@ class Dispatcher:
 
     def receive(self, context):
         def callback(ch, method, properties, body):
+            if type(body) is bytes:
+                image = body.decode("utf-8")
+                print(image)
             print("Received %r" % body)
 
         self._channel.basic_consume(
