@@ -6,6 +6,21 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+  image_loader:
+    build: .
+    image: image-loader:latest
+    container_name: 'image-loader'
     volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
+      - ./images:/images
+  image_processor:
+    build: .
+    image: image-processor:latest
+    container_name: 'image-processor'
+    volumes:
+      - ./images:/images
+  image_sorter:
+    build: .
+    image: image-sorter:latest
+    container_name: 'image-sorter'
+    volumes:
+      - ./images:/images

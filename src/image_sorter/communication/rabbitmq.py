@@ -45,10 +45,8 @@ class RabbitMQ(metaclass=Singleton):
     def connection(self):
         return self._connection
 
-    def declare_queue(self):
+    def __del__(self):
         """
         Only if the connection is made by receiver create queue for direct communication
         """
-
-    def close_connection(self):
         self._connection.close()
